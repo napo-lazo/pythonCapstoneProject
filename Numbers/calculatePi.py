@@ -5,34 +5,39 @@ from math import pi
 from decimal import Decimal, ROUND_DOWN
 
 #gets the constant value of PI from the math module and creates a decimal object with this value
+base = Decimal(10)
 pi = Decimal(pi)
-piAproximation = 3
+piApproximation = Decimal(3)
+
+x = 2
+
 isOdd = True
 stillCalculating = True
-x = 2
 
 #cycle to validate user input
 while True:
     try:
-        decimalPlaces = float(input("How many decimal places of PI do you want?\n"))
+        decimalPlaces = int(input("How many decimal places of PI do you want? (up to 15 decimal places)\n"))
         break
     except:
         print("That is not a valid answer, please give a number\n")
 
-if(decimalPlaces > 0 and decimalPlaces < 16):
-    n = str(1 + 10**(-1 * decimalPlaces))
+if decimalPlaces > 0 and decimalPlaces < 16:
+    n = str(1 + base**(-1 * decimalPlaces))
+elif decimalPlaces > 15:
+    n = str(1 + base**(-1 * 15))
 else:
     n = 1
 
 while stillCalculating:
     if isOdd:
-        piAproximation += 4/(x * (x+1) * (x+2))
+        piApproximation += Decimal(4)/(x * (x+1) * (x+2))
         isOdd = False
     else:
-        piAproximation -= 4/(x * (x+1) * (x+2))
+        piApproximation -= Decimal(4)/(x * (x+1) * (x+2))
         isOdd = True
     x += 2
-    if Decimal(piAproximation).quantize(Decimal(n), rounding=ROUND_DOWN) - Decimal(pi).quantize(Decimal(n), rounding=ROUND_DOWN) == 0:
+    if piApproximation.quantize(Decimal(n), rounding=ROUND_DOWN) - pi.quantize(Decimal(n), rounding=ROUND_DOWN) == 0:
         stillCalculating = False
 
-print(Decimal(piAproximation).quantize(Decimal(n), rounding=ROUND_DOWN))
+print(Decimal(piApproximation).quantize(Decimal(n), rounding=ROUND_DOWN))
