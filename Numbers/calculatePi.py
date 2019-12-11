@@ -38,8 +38,9 @@ while True:
 
 if decimalPlaces > 0 and decimalPlaces < 16:
     n = str(1 + base**(-1 * decimalPlaces))
-elif decimalPlaces > 15:
+elif decimalPlaces >= 16:
     n = str(1 + base**(-1 * 15))
+    decimalPlaces = 15
 else:
     n = 1
 
